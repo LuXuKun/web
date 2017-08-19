@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.entity">
+	<class name="com.entity.Book" table="book">
+
+		<id name="id" column="id" type="int">
+			<generator class="increment" /></id>
+
+		<property name="title"
+				  column="title" update="true" insert="true" not-null="true"
+				  type="java.lang.String" length="32"> </property>
+		
+		<property name="author"
+				  column="author" update="true" insert="true" not-null="true"
+				  type="java.lang.String" length="32"></property>
+		
+		<property name="category"
+				  column="category" update="true" insert="true" not-null="true"
+				  type="java.lang.String" length="32"></property>
+			
+		<property name="price"
+				  column="price" update="true" insert="true" not-null="true"
+				  type="int"></property>
+			 
+		<set name="myorders" lazy="false" inverse="true" cascade="all" >
+			<key>
+				<column name="bookid"/>
+			</key>
+		<one-to-many class="com.entity.MyOrder"/>
+		</set>
+	</class>
+</hibernate-mapping>

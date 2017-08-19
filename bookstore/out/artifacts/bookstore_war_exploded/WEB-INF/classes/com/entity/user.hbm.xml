@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.entity">
+	<class name="com.entity.User" table="user">
+
+		<id name="id" column="id" type="int">
+			<generator class="increment" /></id>
+		
+		<property name="name"
+				  column="name" update="true" insert="true" not-null="true"
+				  type="java.lang.String" length="16"> </property>
+		
+		<property name="password"
+				  column="password" update="true" insert="true" not-null="true"
+				  type="java.lang.String" length="16"></property>
+		
+		<property name="email"
+				  column="email" update="true" insert="true" not-null="true"
+				  type="java.lang.String" length="32"></property>
+		
+		<set name="myorders" lazy="false" inverse="true" cascade="all" >
+			<key>
+				<column name="userid"/>
+			</key>
+		<one-to-many class="com.entity.MyOrder"/>
+		</set>
+	</class>
+</hibernate-mapping>

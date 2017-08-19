@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true" />
+    <package name="bookstore" extends="struts-default,json-default">
+
+        <action name="index">
+            <result>/index.jsp</result>
+        </action>
+
+        <action name="SignUp" class="com.action.SignUp"
+                method="addUser">
+            <result name="success">/LogIn.jsp</result>
+            <result name="error">/SignUp.jsp</result>
+        </action>
+
+        <action name="LogIn" class="com.action.LogIn"
+                method="checkUser">
+            <result name="user">/UserHome.jsp</result>
+            <result name="admin">/AdminHome.jsp</result>
+            <result name="error">/LogIn.jsp</result>
+        </action>
+
+        <action name="LogOut" class="com.action.LogOut"
+                method="logOut">
+            <result name="success">/LogIn.jsp</result>
+        </action>
+
+        <action name="GetAllBooks" class="com.action.BookActions"
+                method="getAllBooks">
+            <result type="json"> </result>
+        </action>
+
+        <action name="GetBookDetail" class="com.action.BookActions"
+                method="getBookDetail">
+            <result type="json"> </result>
+        </action>
+
+        <action name="SearchBookByTitle" class="com.action.BookActions"
+                method="getBookByTitle">
+            <result type="json"> </result>
+        </action>
+
+        <action name="AddToCart" class="com.action.UserActions"
+                method="addToCart">
+            <result type="json"> </result>
+        </action>
+
+        <action name="DeleteFromCart" class="com.action.UserActions"
+                method="deleteFromCart">
+            <result type="json"> </result>
+        </action>
+
+        <action name="GetCartDetail" class="com.action.BookActions"
+                method="getCartDetail">
+            <result type="json"> </result>
+        </action>
+
+        <action name="GetAllUser" class="com.action.UserActions"
+                method="getAllUser">
+            <result type="json"> </result>
+        </action>
+
+        <action name="AddUser" class="com.action.UserActions"
+                method="addUser">
+            <result type="json"> </result>
+        </action>
+
+        <action name="UpdateUser" class="com.action.UserActions"
+                method="updateUser">
+            <result type="json"> </result>
+        </action>
+
+        <action name="DeleteUser" class="com.action.UserActions"
+                method="deleteUser">
+            <result type="json"> </result>
+        </action>
+
+        <action name="AddBook" class="com.action.BookActions"
+                method="addBook">
+            <result type="json"> </result>
+        </action>
+
+        <action name="UpdateBook" class="com.action.BookActions"
+                method="updateBook">
+            <result type="json"> </result>
+        </action>
+
+        <action name="DeleteBook" class="com.action.BookActions"
+                method="deleteBook">
+            <result type="json"> </result>
+        </action>
+
+        <action name="GetUserByName" class="com.action.UserActions"
+                method="getUserByName">
+            <result type="json"> </result>
+        </action>
+
+        <action name="GetUserByEmail" class="com.action.UserActions"
+                method="getUserByEmail">
+            <result type="json"> </result>
+        </action>
+
+        <action name="GetBookByTitle" class="com.action.BookActions"
+                method="getBookByTitle">
+            <result type="json"> </result>
+        </action>
+
+        <action name="GetBookByCategory" class="com.action.BookActions"
+                method="getBookByCategory">
+            <result type="json"> </result>
+        </action>
+
+        <action name="GetBookByID" class="com.action.BookActions"
+                method="getBookByID">
+            <result type="json"> </result>
+        </action>
+
+        <action name="GetUserOrders" class="com.action.UserActions"
+                method="getUserOrders">
+            <result type="json"> </result>
+        </action>
+
+        <action name="OrderStatistic" class="com.action.OrderActions"
+                method="orderStatistic">
+            <result type="json"> </result>
+        </action>
+
+        <action name="AddToOrder" class="com.action.OrderActions"
+                method="addToOrder">
+            <result name="success">/PaySuccess.jsp</result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.entity.MyOrder" table="myorder">
+		<id  name="id" column="id" type="int">
+		<generator class="increment" /></id>
+		
+		<property name="amount" column="amount" update="true"
+			insert="true" not-null="true" type="int"></property>
+			
+		<property name="year" column="year" update="true"
+			insert="true" not-null="true" type="int"
+			length="32"></property>
+		
+		<property name="month" column="month" update="true"
+			insert="true" not-null="true" type="int"
+			length="32"></property>
+		
+		<property name="day" column="day" update="true"
+			insert="true" not-null="true" type="int"
+			length="32"></property>
+			
+		<many-to-one name="user" column="userid" class="com.entity.User"
+   not-null="false" lazy="false"></many-to-one>
+   
+   		<many-to-one name="book" column="bookid" class="com.entity.Book"
+   not-null="false" lazy="false"></many-to-one>
+   
+	</class>
+</hibernate-mapping>

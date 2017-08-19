@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       ">
+
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName"
+                  value="com.mysql.jdbc.Driver">
+        </property>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/bookstore">
+        </property>
+        <property name="username" value="root"></property>
+        <property name="password" value="root"></property>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource"> <ref bean="dataSource" /> </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect"> org.hibernate.dialect.MySQLDialect </prop>
+                <prop key="show_sql">true</prop>
+            </props>
+        </property>
+        <property name="mappingResources">
+            <list>
+                <value>com/entity/user.hbm.xml</value>
+                <value>com/entity/book.hbm.xml</value>
+                <value>com/entity/MyOrder.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Dao层bean -->
+    <bean id="userDao" class="com.dao.UserDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+    <bean id="bookDao" class="com.dao.BookDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+    <bean id="orderDao" class="com.dao.OrderDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+    <!-- service层bean -->
+    <bean id="userService" class="com.service.UserServiceImpl">
+        <property name="userDao" ref="userDao" />
+    </bean>
+    <bean id="bookService" class="com.service.BookServiceImpl">
+        <property name="bookDao" ref="bookDao" />
+    </bean>
+    <bean id="orderService" class="com.service.OrderServiceImpl">
+        <property name="orderDao" ref="orderDao" />
+    </bean>
+
+    <!-- action层bean -->
+    <bean id="SignUpAction" class="com.action.SignUp" scope="prototype">
+        <property name="userService" ref="userService" />
+    </bean>
+    <bean id="LogInAction" class="com.action.LogIn" scope="prototype">
+        <property name="userService" ref="userService" />
+    </bean>
+    <bean id="BookAction" class="com.action.BookActions" scope="prototype">
+        <property name="bookService" ref="bookService" />
+    </bean>
+    <bean id="UserAction" class="com.action.UserActions" scope="prototype">
+        <property name="userService" ref="userService" />
+    </bean>
+    <bean id="OrderAction" class="com.action.OrderActions" scope="prototype">
+        <property name="orderService" ref="orderService" />
+        <property name="bookService" ref="bookService" />
+        <property name="userService" ref="userService" />
+    </bean>
+</beans>
